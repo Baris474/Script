@@ -1,0 +1,18 @@
+getgenv().enabled = true
+local s = game.Players.LocalPlayer.leaderstats.Raised.Value
+local SayMessageRequest = game.ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest");
+while wait(1) do
+if getgenv().enabled then
+
+game.Players.LocalPlayer.Character.Humanoid.Jump = true
+game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+game.Players.LocalPlayer.leaderstats.Raised:GetPropertyChangedSignal("Value"):Connect(function()
+   local rsd = game.Players.LocalPlayer.leaderstats.Raised.Value
+   local raised = rsd - s
+   s = game.Players.LocalPlayer.leaderstats.Raised.Value
+   local jp = raised/2
+   game.Players.LocalPlayer.Character.Humanoid.JumpPower = game.Players.LocalPlayer.Character.Humanoid.JumpPower + jp
+   SayMessageRequest:FireServer("Thanks for donating added "..jp.." Jump power", "All");
+end)
+end
+end
